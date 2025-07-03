@@ -2,6 +2,7 @@ import App from "@/App";
 import AddBook from "@/pages/addBook/AddBook";
 import AllBooks from "@/pages/AllBooks/AllBooks";
 import BorrowSummary from "@/pages/borrowBook/BorrowSummary";
+import Home from "@/pages/home/Home";
 import { createBrowserRouter } from "react-router";
 
 const router = createBrowserRouter([
@@ -9,6 +10,10 @@ const router = createBrowserRouter([
         path : '/',
         element : <App></App>,
         children : [
+         {
+            path : '/',
+            element : <Home/>
+         },
          {
             path : '/books',
             element : <AllBooks></AllBooks>
