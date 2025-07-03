@@ -1,13 +1,15 @@
 
 import { Button } from "@/components/ui/button";
 import { useGetBooksQuery } from "@/redux/features/books/bookApi";
+import type { IBook } from "@/types/bookTypes";
 import { Loader2 } from "lucide-react";
 import { Link } from "react-router";
 
 
 const Booklist = () => {
     const { data, isLoading, isError, error } = useGetBooksQuery()
-    const books = data?.data;
+   const books: IBook[] = data?.data || [];
+
     if (isLoading) return <div className="flex justify-center items-center h-64">
         <Loader2 className="animate-spin w-6 h-6" />
       </div>

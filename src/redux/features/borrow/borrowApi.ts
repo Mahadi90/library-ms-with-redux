@@ -14,7 +14,7 @@ interface IBorrowResponse {
 
 export const borrowApi = createApi({
   reducerPath: "borrowApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/api/" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "https://library-ms-assignment-backend.vercel.app/api/" }),
   tagTypes: ["BorrowSummary"],
   endpoints: (builder) => ({
     borrowBook: builder.mutation<BorrowResponse, { book: string; quantity: number; dueDate: string }>({

@@ -25,3 +25,9 @@ export interface SingleBookResponseI {
     }
 
 }
+
+export interface BooksResponse {
+    success: boolean;
+    message: string;
+    data: IBook[];
+}

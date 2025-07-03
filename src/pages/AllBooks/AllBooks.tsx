@@ -87,7 +87,8 @@ const AllBooks = () => {
         <Loader2 className="animate-spin w-6 h-6" />
     </div>;
 
-    const books = data?.data;
+    const books: IBook[] = data?.data || [];
+
 
     return (
         <div className="ms-2 lg:ms-4 mt-30">
