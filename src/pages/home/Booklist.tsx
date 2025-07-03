@@ -1,6 +1,8 @@
 
+import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { useGetBooksQuery } from "@/redux/features/books/bookApi";
+import { Link } from "react-router";
 
 
 const Booklist = () => {
@@ -22,6 +24,7 @@ const Booklist = () => {
                     <h2 className="text-xl font-semibold mt-2">{book.title}</h2>
                     <p className="text-sm text-gray-600">Author: {book.author}</p>
                     <p className="text-sm text-gray-500 mt-1">{book.genre}</p>
+                    <Link  to="/books"><Button className="cursor-pointer mt-2">Borrow Now</Button></Link>
                 </div>
             ))}
         </div>
