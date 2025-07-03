@@ -7,12 +7,15 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import { useGetBorrowsQuery } from "@/redux/features/borrow/borrowApi";
+import { Loader2 } from "lucide-react";
 
 const BorrowSummary = () => {
     const { data, isLoading, isError } = useGetBorrowsQuery();
 
     console.log(data);
-    if (isLoading) return <p>Loading borrow summary...</p>;
+    if (isLoading) return <div className="my-52 flex justify-center items-center h-64">
+        <Loader2 className="animate-spin w-6 h-6" />
+    </div>;
     if (isError) return <p>Failed to load borrow summary.</p>;
 
 

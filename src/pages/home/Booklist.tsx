@@ -1,15 +1,16 @@
 
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
 import { useGetBooksQuery } from "@/redux/features/books/bookApi";
+import { Loader2 } from "lucide-react";
 import { Link } from "react-router";
 
 
 const Booklist = () => {
     const { data, isLoading, isError, error } = useGetBooksQuery()
     const books = data?.data;
-    if (isLoading) return <Progress className="w-1/4 h-4 mb-96 mx-auto" value={80}></Progress>
-    
+    if (isLoading) return <div className="flex justify-center items-center h-64">
+        <Loader2 className="animate-spin w-6 h-6" />
+      </div>
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if (isError) return <p className="text-red-500">Error: {(error as any)?.message}</p>;
 

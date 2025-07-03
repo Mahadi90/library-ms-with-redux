@@ -28,8 +28,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Input } from "@/components/ui/input";
 import type { IBook } from "@/types/bookTypes";
 import { useDeleteBookMutation, useGetBooksQuery, useUpdateBookMutation } from "@/redux/features/books/bookApi";
-import { BookOpenText, PencilIcon, Trash2Icon } from "lucide-react";
-import { Progress } from "@/components/ui/progress";
+import { BookOpenText, Loader2, PencilIcon, Trash2Icon } from "lucide-react";
 import { toast } from "sonner";
 import { useNavigate } from "react-router";
 import { useBorrowBookMutation } from "@/redux/features/borrow/borrowApi";
@@ -66,6 +65,7 @@ const AllBooks = () => {
         if (editBook && formData) {
             await updateBook({ id: editBook._id, data: formData });
             setEditBook(null);
+            toast.success('Book updated succesfully')
         }
     };
 
@@ -83,7 +83,10 @@ const AllBooks = () => {
     };
 
 
-    if (isLoading) return <Progress value={85} className="w-1/4 h-4 my-[50vh] mx-auto" />;
+    if (isLoading) return <div className="flex my-30 mb-62 justify-center items-center h-64">
+        <Loader2 className="animate-spin w-6 h-6" />
+    </div>;
+
     const books = data?.data;
 
     return (
@@ -234,17 +237,17 @@ const AllBooks = () => {
                                 }).unwrap();
                                 toast.success("📚 Book borrowed successfully!");
                                 navigate("/borrow-summary");
-                               
-                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                            } catch (error : any) {
+
+                                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                            } catch (error: any) {
                                 console.log(error);
                                 const errorMsg = error?.data?.message || "❌ Borrow failed";
                                 toast.error(errorMsg);
                             }
                         }}
                         className="space-y-4"
-                    > 
-                    <label>Quantity</label>
+                    >
+                        <label>Quantity</label>
                         <Input
                             type="number"
                             placeholder="Quantity"
@@ -252,7 +255,7 @@ const AllBooks = () => {
                             value={quantity}
                             onChange={(e) => setQuantity(+e.target.value)}
                         />
-                         <label>Due date</label>
+                        <label>Due date</label>
                         <Input
                             type="date"
                             placeholder="Due Date"
