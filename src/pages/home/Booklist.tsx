@@ -25,6 +25,7 @@ const Booklist = () => {
                     <p className="text-sm text-gray-600">Author: {book.author}</p>
                     <p className="text-sm text-gray-500 mt-1">{book.genre}</p>
                     <Link  to="/books"><Button className="cursor-pointer mt-2">Borrow Now</Button></Link>
+                    <Link  to={`books/${book._id}`}><Button className="cursor-pointer ms-2 mt-2">Details</Button></Link>
                 </div>
             ))}
         </div>

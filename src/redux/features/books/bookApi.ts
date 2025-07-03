@@ -1,12 +1,6 @@
-import type { IBook } from '@/types/bookTypes';
+import type { BooksResponse, IBook, SingleBookResponseI } from '@/types/bookTypes';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-
-interface BooksResponse {
-    success: boolean;
-    message: string;
-    data: IBook[];
-}
 
 
 export const bookApi = createApi({
@@ -17,15 +11,21 @@ export const bookApi = createApi({
         getBooks: builder.query<BooksResponse, void>({
             query: () => 'books',
             providesTags: ['Books'],
-            keepUnusedDataFor: 0, 
+            keepUnusedDataFor: 0,
         }),
 
-        addBook: builder.mutation<BooksResponse, {title: string; author: string; genre: 'FICTION' | 'NON_FICTION' | 'SCIENCE' | 'HISTORY' | 'BIOGRAPHY' | 'FANTASY'; isbn: string; description?: string; img?: string; copies: number; available: boolean;}>({
-        query : (payload) => ({
-            url : 'books',
-            method : 'POST',
-            body : payload
-        })
+        getBookById: builder.query<SingleBookResponseI, string>({
+            query: (id) => `books/${id}`,
+            providesTags: (_, __, id) => [{ type: 'Books', id }],
+        }),
+
+
+        addBook: builder.mutation<BooksResponse, { title: string; author: string; genre: 'FICTION' | 'NON_FICTION' | 'SCIENCE' | 'HISTORY' | 'BIOGRAPHY' | 'FANTASY'; isbn: string; description?: string; img?: string; copies: number; available: boolean; }>({
+            query: (payload) => ({
+                url: 'books',
+                method: 'POST',
+                body: payload
+            })
         }),
 
         updateBook: builder.mutation<BooksResponse, { id: string; data: Partial<IBook> }>({
@@ -49,4 +49,4 @@ export const bookApi = createApi({
     }),
 });
 
-export const { useGetBooksQuery, useUpdateBookMutation, useDeleteBookMutation, useAddBookMutation } = bookApi;
+export const { useGetBooksQuery, useUpdateBookMutation, useDeleteBookMutation, useAddBookMutation, useGetBookByIdQuery } = bookApi;
