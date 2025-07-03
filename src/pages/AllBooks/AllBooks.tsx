@@ -87,7 +87,7 @@ const AllBooks = () => {
     const books = data?.data;
 
     return (
-        <div className="mt-30">
+        <div className="ms-2 lg:ms-4 mt-30">
             <h2 className="my-8 font-semibold text-3xl text-center">A list of all books</h2>
             <Table>
 

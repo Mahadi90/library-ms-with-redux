@@ -10,7 +10,7 @@ function App() {
   return (
     <>
     <Navbar></Navbar>
-     <Toaster position="top-center" richColors />
+     <Toaster position="top-right" duration={2000} richColors />
     <Outlet></Outlet>
     <Footer></Footer>
     </>

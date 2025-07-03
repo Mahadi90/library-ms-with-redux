@@ -1,4 +1,4 @@
-import type { IBorrow } from "@/types/borrowTypes";
+import type { IBorrow, IBorrows } from "@/types/borrowTypes";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export interface BorrowResponse {
@@ -7,9 +7,15 @@ export interface BorrowResponse {
   data: IBorrow;
 }
 
+interface IBorrowResponse {
+  success: boolean;
+  data: IBorrows[];  // data property is an array of IBorrow
+}
+
 export const borrowApi = createApi({
   reducerPath: "borrowApi",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/api/" }),
+  tagTypes: ["BorrowSummary"],
   endpoints: (builder) => ({
     borrowBook: builder.mutation<BorrowResponse, { book: string; quantity: number; dueDate: string }>({
       query: (payload) => ({
@@ -17,9 +23,11 @@ export const borrowApi = createApi({
         method: "POST",
         body: payload,
       }),
+      invalidatesTags: ["BorrowSummary"],
     }),
-    getBorrows: builder.query<BorrowResponse[], void>({
+    getBorrows: builder.query<IBorrowResponse, void>({
       query: () => "borrow",
+      providesTags: ["BorrowSummary"]
     }),
   }),
 });

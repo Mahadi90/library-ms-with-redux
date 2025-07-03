@@ -1,9 +1,44 @@
-
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table";
+import { useGetBorrowsQuery } from "@/redux/features/borrow/borrowApi";
 
 const BorrowSummary = () => {
+    const { data, isLoading, isError } = useGetBorrowsQuery();
+
+    console.log(data);
+    if (isLoading) return <p>Loading borrow summary...</p>;
+    if (isError) return <p>Failed to load borrow summary.</p>;
+
+
+
     return (
-        <div>
-             Borrow Summary
+
+        <div className="p-8 mt-24 min-h-[80vh]">
+            <h2 className="text-3xl font-semibold mb-6 text-center">Borrow Summary</h2>
+            <Table>
+                <TableHeader>
+                    <TableRow>
+                        <TableHead>Book Title</TableHead>
+                        <TableHead>ISBN</TableHead>
+                        <TableHead>Total Quantity Borrowed</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {data?.data.map((item) => (
+                        <TableRow key={item?.book?.isbn}>
+                            <TableCell>{item?.book?.title}</TableCell>
+                            <TableCell>{item?.book?.isbn}</TableCell>
+                            <TableCell>{item?.totalQuantity}</TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
         </div>
     );
 };
